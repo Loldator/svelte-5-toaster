@@ -1,4 +1,6 @@
 <script>
+	import { toaster } from '$lib/utils/toaster.svelte';
+
 	/**
 	 * @typedef Data
 	 * @property {number} timeout
@@ -27,21 +29,14 @@
 		data.isOld = performance.now() > data.timeout;
 		if (data.isOld) {
 			data.hidden = true;
-			clearInterval(intId);
+			if (!toaster.hasOpen) {
+				onold(id);
+				clearInterval(intId);
+			}
 		}
 	}
 
 	const intId = setInterval(checkIfOld, 500, id);
-
-	/**
-	 * @type {?HTMLDivElement}
-	 */
-	let d = $state.frozen(null);
-	// $effect(() => {
-	// 	if (d && data?.open) {
-	// 		data.modal ? d?.firstChild?.firstChild?.showModal() : d?.firstChild?.firstChild?.show();
-	// 	}
-	// });
 </script>
 
 <div class:hiddenx={data.hidden}>

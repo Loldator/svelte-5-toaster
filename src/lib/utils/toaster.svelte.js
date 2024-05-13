@@ -1,4 +1,4 @@
-import { Map } from 'svelte/reactivity';
+import { Map } from "svelte/reactivity";
 
 function createToaster() {
 	/**
@@ -14,6 +14,8 @@ function createToaster() {
 	const map = new Map();
 
 	const arr = $derived([...map.values()]);
+
+	const hasOpen = $derived(arr.some((x) => x.open === true));
 
 	/**
 	 * @param {import('svelte').Snippet} snippet
@@ -33,10 +35,7 @@ function createToaster() {
 	 * @param {string} id
 	 */
 	function pop(id) {
-		// if (map.get(id)?.open) {
-		// 	return;
-		// }
-		// map.delete(id);
+		map.delete(id);
 	}
 
 	return {
@@ -46,9 +45,12 @@ function createToaster() {
 		get arr() {
 			return arr;
 		},
+		get hasOpen() {
+			return hasOpen;
+		},
 		add,
 		pop,
-		clear
+		clear,
 	};
 }
 

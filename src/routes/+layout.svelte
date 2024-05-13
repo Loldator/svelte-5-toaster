@@ -2,7 +2,6 @@
 	import '../app.css';
 	import Toaster from '$lib/components/Toaster.svelte';
 	import { toaster } from '$lib/utils/toaster.svelte.js';
-	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 
 	/**
@@ -12,18 +11,16 @@
 	function show(dialog, data) {
 		data.modal ? dialog?.showModal() : dialog?.show();
 	}
-
-	afterNavigate((nav) => console.log(nav));
 </script>
 
 {#snippet exampleToast(idx, data)}
-	<div id={data.id} class="bar">
+	<div id={data.id} class="toast">
 		<label for="dialog">
 			<button
 				type="button"
 				onclick={(e) => {
-					const d = e.target.parentElement.nextElementSibling;
-					show(d, data);
+					const dialog = e.target.parentElement.nextElementSibling;
+					show(dialog, data);
 					data.open = true;
 				}}>{`${idx} ► ${data.id}`}</button
 			>
@@ -43,21 +40,20 @@
 	</div>
 
 	<style>
-		div {
+		.toast {
 			opacity: 1;
 			transition-property: opacity;
 			transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 			transition-duration: 350ms;
 		}
 		:modal {
-			background-color: blue;
 			opacity: 1;
 			transition-property: opacity;
 			transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 			transition-duration: 350ms;
 		}
 		/*   Open state of the dialog  */
-		dialog[open] {
+		:modal {
 			opacity: 1;
 			padding: 0.5rem;
 			border-radius: 0.25rem;
@@ -79,7 +75,7 @@
 		/*   Before-open state  */
 		/* Needs to be after the previous dialog[open] rule to take effect, as the specificity is the same */
 		@starting-style {
-			dialog[open] {
+			:modal {
 				opacity: 0;
 				transform: scaleY(0);
 			}
@@ -110,21 +106,21 @@
 			}
 		}
 
-		.bar::before {
+		.toast::before {
 			content: '🚀';
 			transform: rotate(270deg);
 			position: absolute;
 			top: -0.5rem;
 			left: -1.25rem;
 		}
-		.bar::after {
+		.toast::after {
 			content: '🚀';
 			position: absolute;
 			top: -0.5rem;
 			right: -1.25rem;
 		}
 
-		.bar {
+		.toast {
 			box-shadow: 0px 0 0 0 2px rgb(59 130 246 / 0.5);
 			pointer-events: auto;
 			display: block;
@@ -138,41 +134,58 @@
 	</style>
 {/snippet}
 
-<nav id="nav">
-	<a id="a" class:local-link={'/a' === $page.route.id} href="/a">A</a>
-	<a id="b" class:local-link={'/b' === $page.route.id} href="/b">B</a>
-</nav>
+<div class="h-screen flex flex-col">
+	<nav id="nav">
+		<a id="a" class:local-link={'/a' === $page.route.id} href="/a">A</a>
+		<a id="b" class:local-link={'/b' === $page.route.id} href="/b">B</a>
+	</nav>
 
-<section>
-	<div id="buttons">
-		<button onclick={() => toaster.add(exampleToast, { timeout: performance.now() + 3500 })} class="btn">TOAST</button>
-		<button onclick={() => toaster.clear()} class="btn">CLEAR </button>
+	<div class="split">
+		<main id="main">
+			<slot />
+		</main>
+
+		<section id="buttons">
+			<button onclick={() => toaster.add(exampleToast, { timeout: performance.now() + 3500 })} class="btn">TOAST</button>
+			<button onclick={() => toaster.clear()} class="btn">CLEAR </button>
+		</section>
 	</div>
-</section>
-
-<main>
-	<slot />
-</main>
+</div>
 
 {#if toaster.arr.length > 0}
 	<Toaster onold={(/** @type {string} */ id) => toaster.pop(id)} />
 {/if}
 
 <style>
+	#main {
+		width: 100%;
+	}
+	.split {
+		display: flex;
+		flex-grow: true;
+		align-items: stretch;
+		height: 100%;
+		background: rgb(240, 196, 44);
+		background: linear-gradient(228deg, rgba(240, 196, 44, 1) 0%, rgba(176, 100, 249, 1) 100%);
+	}
+
 	#nav {
 		display: flex;
 		gap: 2rem;
+		background: gray;
 		place-content: center;
-		margin-top: 0.25rem;
+		padding-top: 0.25rem;
+		padding-bottom: 0.25rem;
 	}
 	.local-link {
 		color: red;
+		text-decoration: underline;
 	}
 
 	#buttons {
-		height: 100vh;
-		width: 100vw;
+		flex-basis: 1/3;
 		display: flex;
+		margin-right: 0.25rem;
 		justify-content: center;
 		align-items: center;
 		gap: 10px;
