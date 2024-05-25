@@ -23,7 +23,7 @@ function createToaster() {
 	 */
 	function add(snippet, data) {
 		const id = crypto.randomUUID();
-		const d = $state({ snippet, open: false, isOld: false, modal: true, id: id, ...data });
+		const d = $state({ snippet, open: false, isOld: false, id: id, ...data });
 		map.set(id, d);
 	}
 
