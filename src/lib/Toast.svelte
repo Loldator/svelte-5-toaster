@@ -1,5 +1,5 @@
 <script>
-	import { toaster } from '$lib/utils/toaster.svelte';
+	import { toaster } from '$lib/toaster.svelte';
 
 	/**
 	 * @typedef Data
@@ -39,12 +39,6 @@
 	const intId = setInterval(checkIfOld, 500, id);
 </script>
 
-<div class:hiddenx={data.hidden}>
+<div class:hidden={data.hidden}>
 	{@render children(idx, data)}
 </div>
-
-<style>
-	.hiddenx {
-		visibility: hidden;
-	}
-</style>

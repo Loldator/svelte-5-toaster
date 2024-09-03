@@ -1,0 +1,8 @@
+{
+	"name": "@loldator/svelte-5-toaster",
+	"version": "0.1.0",
+	"exports": "./dist/**/*",
+	"publish": {
+		"exclude": ["!dist"]
+	}
+}

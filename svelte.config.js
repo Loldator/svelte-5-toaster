@@ -1,6 +1,7 @@
+/** @import { Config } from '@sveltejs/kit' */
 import adapter from '@sveltejs/adapter-auto';
 
-/** @type {import('@sveltejs/kit').Config} */
+/** @type { Config } */
 const config = {
 	kit: {
 		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.

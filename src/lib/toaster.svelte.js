@@ -1,4 +1,5 @@
-import { Map } from "svelte/reactivity";
+/** @import { Snippet } from '#svelte' */
+import { SvelteMap } from 'svelte/reactivity';
 
 function createToaster() {
 	/**
@@ -7,18 +8,18 @@ function createToaster() {
 	 * @property {number} time
 	 * @property {boolean} open
 	 * @property {boolean} isOld
-	 * @property {import('svelte').Snippet} snippet
+	 * @property {Snippet} snippet
 	 */
 
 	/** @type {Map<string, Data>}*/
-	const map = new Map();
+	const map = new SvelteMap();
 
 	const arr = $derived([...map.values()]);
 
 	const hasOpen = $derived(arr.some((x) => x.open === true));
 
 	/**
-	 * @param {import('svelte').Snippet} snippet
+	 * @param {Snippet} snippet
 	 * @param {any} data
 	 */
 	function add(snippet, data) {
@@ -50,7 +51,7 @@ function createToaster() {
 		},
 		add,
 		pop,
-		clear,
+		clear
 	};
 }
 

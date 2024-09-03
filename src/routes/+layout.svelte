@@ -1,8 +1,8 @@
 <script>
 	import '../app.css';
 	import { page } from '$app/stores';
-	import Toaster from '$lib/components/Toaster.svelte';
-	import { toaster } from '$lib/utils/toaster.svelte';
+	import Toaster from '$lib/Toaster.svelte';
+	import { toaster } from '$lib/toaster.svelte';
 </script>
 
 <div class="foo">
@@ -24,7 +24,6 @@
 	.foo {
 		width: 100wh;
 		height: 100vh;
-		max-height: 100vh;
 		display: flex;
 		flex-direction: column;
 	}

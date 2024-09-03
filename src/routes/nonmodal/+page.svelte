@@ -1,11 +1,13 @@
 <script>
-	import { toaster } from '$lib/utils/toaster.svelte.js';
+	/** @import { HTMLDialogElement } from '#svelte/elements' */
+
+	import { toaster } from '$lib/toaster.svelte.js';
 
 	/**
 	 * @param {{ modal: any; open: boolean; dialog : ?HTMLDialogElement; }} data
 	 */
 	function show(data) {
-		data.modal ? data?.dialog?.showModal() : data?.dialog?.show();
+		data?.dialog?.show();
 		data.open = true;
 	}
 
@@ -19,40 +21,57 @@
 </script>
 
 {#snippet exampleToast(idx, data)}
-	<div id={data.id}>
-		<dialog use:addRef={data} id={data.id} onclose={() => (data.open = false)}>
-			<form method="dialog">
-				<div class:toast={!data.modal}>
-					<pre>{JSON.stringify(data, null, 2)}</pre>
-					<button type="submit" class="btn">Close</button>
-				</div>
-			</form>
-		</dialog>
-
+	<div class="wrapper" class:is-removing={data.isOld} class:content-hidden={data.hidden} id={data.id}>
 		{#if !data.open}
-			<div class="toast">
+			<div class:is-removing={data.isOld} class="wrapper toast">
 				<label for="dialog">
 					<button type="button" onclick={() => show(data)}>{`${idx} ► ${data.id}`}</button>
 				</label>
 			</div>
+		{:else}
+			<dialog class:toast={data.open} use:addRef={data} id={data.id} onclose={() => (data.open = false)}>
+				<form method="dialog">
+					<div>
+						<pre>{JSON.stringify(data, null, 2)}</pre>
+						<button type="submit" class="btn">Close</button>
+					</div>
+				</form>
+			</dialog>
 		{/if}
 	</div>
 
 	<style>
-		/*   Open state of the dialog  */
-		:modal {
+		.content-hidden {
+			content-visibility: hidden;
+		}
+
+		.wrapper {
 			opacity: 1;
-			padding: 0.5rem;
-			border-radius: 0.25rem;
-			transform: scaleY(1);
-			transition-property: opacity;
-			transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-			transition-duration: 350ms;
+			transition:
+				opacity 0.5s,
+				transform 0.5s,
+				height 0.5s,
+				display 0.5s allow-discrete;
+		}
+
+		@starting-style {
+			.wrapper {
+				opacity: 0;
+				height: 0;
+			}
+		}
+
+		.is-removing {
+			opacity: 0;
+			height: 0;
+			display: none;
+			transform: skewX(50deg) translateX(-25vw);
 		}
 
 		dialog[open] {
 			opacity: 1;
 			transform: scaleY(1);
+			border: none;
 			max-width: 100dvw;
 			max-height: 100dvh;
 		}

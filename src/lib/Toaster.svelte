@@ -7,7 +7,7 @@
 	/** @type {Props} */
 	const { onold } = $props();
 
-	import { toaster } from '$lib/utils/toaster.svelte.js';
+	import { toaster } from '$lib/toaster.svelte.js';
 	import Toast from './Toast.svelte';
 </script>
 
@@ -30,10 +30,11 @@
 		bottom: 0;
 		display: flex;
 		flex-direction: column;
+		justify-content: end;
 		align-items: center;
-		width: 100dvw;
+		width: 100vw;
 		max-width: 100dvw;
-		max-height: 100dvh;
+		height: 100dvh;
 		margin-bottom: 1rem;
 	}
 </style>
