@@ -7,7 +7,6 @@
 	 * @param {{ modal: any; open: boolean; dialog : ?HTMLDialogElement; }} data
 	 */
 	function show(data) {
-		data?.dialog?.show();
 		data.open = true;
 	}
 
@@ -17,6 +16,9 @@
 	 */
 	function addRef(node, data) {
 		data.dialog = node;
+		if (data.open) {
+			node.show();
+		}
 	}
 </script>
 

@@ -1,7 +1,11 @@
 {
 	"name": "Loldator-svelte5-toaster",
 	"version": "0.0.1",
-	"keywords": ["svelte", "component", "toaster"],
+	"keywords": [
+		"svelte",
+		"component",
+		"toaster"
+	],
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -27,7 +31,11 @@
 			"svelte": "./dist/index.js"
 		}
 	},
-	"files": ["dist", "!dist/**/*.test.*", "!dist/**/*.spec.*"],
+	"files": [
+		"dist",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
 	"devDependencies": {
 		"@playwright/test": "^1.45.3",
 		"@sveltejs/adapter-auto": "^3.2.4",

@@ -17,7 +17,7 @@
 		data.dialog = node;
 	}
 
-	let { idx, data } = $$props();
+	const { idx, data } = $props();
 </script>
 
 <div class:content-hidden={data.hidden} id={data.id}>

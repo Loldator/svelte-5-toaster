@@ -3,8 +3,12 @@
 	import { toaster } from '$lib/toaster.svelte.js';
 </script>
 
+{#snippet exampleToast(idx, data)}
+	<ExampleToast {idx} , {data} />
+{/snippet}
+
 <section id="button-section">
-	<button class="btn" onclick={() => toaster.add(ExampleToast, { timeout: performance.now() + 5000, modal: true })}>TOAST</button>
+	<button class="btn" onclick={() => toaster.add(exampleToast, { timeout: performance.now() + 5000, modal: true })}>TOAST</button>
 	<button class="btn" onclick={() => toaster.clear()}>CLEAR </button>
 </section>
 
