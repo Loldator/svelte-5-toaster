@@ -36,6 +36,7 @@ function createToaster() {
 	 * @param {string} id
 	 */
 	function pop(id) {
+		console.log(id);
 		map.delete(id);
 	}
 

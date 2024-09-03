@@ -46,6 +46,7 @@
 
 	:modal {
 		opacity: 1;
+
 		padding: 0.5rem;
 		border-radius: 0.25rem;
 		transform: scaleY(1);
@@ -77,6 +78,7 @@
 
 	/*   Open state of the dialog  */
 	dialog[open] {
+		pointer-events: auto;
 		opacity: 1;
 		transform: scaleY(1);
 		max-width: 100dvw;
