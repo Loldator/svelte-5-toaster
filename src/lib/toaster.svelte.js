@@ -1,4 +1,5 @@
 /** @import { Snippet } from '#svelte' */
+
 import { SvelteMap } from 'svelte/reactivity';
 
 function createToaster() {
@@ -12,7 +13,7 @@ function createToaster() {
 	 */
 
 	/** @type {Map<string, Data>}*/
-	const map = new SvelteMap();
+	const map = $state(new SvelteMap());
 
 	const arr = $derived([...map.values()]);
 
@@ -36,7 +37,6 @@ function createToaster() {
 	 * @param {string} id
 	 */
 	function pop(id) {
-		console.log(id);
 		map.delete(id);
 	}
 

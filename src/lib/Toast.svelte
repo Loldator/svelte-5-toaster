@@ -40,5 +40,5 @@
 </script>
 
 <div class:hidden={data.hidden}>
-	{@render children(idx, data)}
+	{@render children?.(idx, data)}
 </div>

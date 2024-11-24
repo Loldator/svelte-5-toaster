@@ -5,13 +5,14 @@
 	 */
 
 	/** @type {Props} */
-	const { onold } = $props();
+	const { onold, children } = $props();
 
 	import { toaster } from '$lib/toaster.svelte.js';
 	import Toast from './Toast.svelte';
 </script>
 
 <div id="toaster">
+	{@render children?.()}
 	{#each toaster.arr as data, idx}
 		<Toast {onold} {idx} id={data.id} {data}>
 			{@render data.snippet(idx, data)}

@@ -9,7 +9,7 @@
 
 <section id="button-section">
 	<button class="btn" onclick={() => toaster.add(exampleToast, { timeout: performance.now() + 5000, modal: true })}>TOAST</button>
-	<button class="btn" onclick={() => toaster.clear()}>CLEAR </button>
+	<button class="btn" onclick={() => toaster.clear()}>CLEAR</button>
 </section>
 
 <style>

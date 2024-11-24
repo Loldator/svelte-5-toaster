@@ -16,9 +16,9 @@
 	</main>
 </div>
 
-{#if toaster.arr.length > 0}
-	<Toaster onold={(/** @type {string} */ id) => toaster.pop(id)} />
-{/if}
+<!-- {#if toaster.arr.length > 0} -->
+<Toaster onold={(/** @type {string} */ id) => toaster.pop(id)} />
+<!-- {/if} -->
 
 <style>
 	.foo {
